@@ -1,0 +1,48 @@
+fun main() {
+    val transfer = cardBank("Maestro", 130000, 80000)
+    println(transfer)
+}
+
+val cardMast = "Mastercard"
+val cardMaest = "Maestro"
+val cardVisa = "Visa"
+val cardMir = "Mir"
+val cardVK = "VK Pay"
+val percent = 100
+val holdM = 0.6
+val holdV = 0.75
+val bet = 20
+val betM = 300
+val minComission = 35
+val limitd = 150_000
+val limitm = 600_000
+val limitMast = 75_000
+val limitdVK = 15_000
+val limitmVK = 40_000
+
+
+fun cardBank(card: String, amountd: Int, amountm: Int = 0): Any {
+    when (card) {
+        cardMast, cardMaest -> {
+            if ((amountd > limitd) || ((amountd + amountm) > limitm))
+                return "Превышен лимит, операция невозможна"
+            if ((amountd + amountm) in (betM..limitMast)) return (amountd * 0)
+            if (amountm > limitMast || amountd < betM) return ((amountd * holdM) / percent + bet).toInt()
+            else return (((amountd + amountm - limitMast) * holdM) / percent + bet).toInt()
+        }
+
+        cardVisa, cardMir -> {
+            if ((amountd > limitd) || ((amountd + amountm) > limitm))
+                return "Превышен лимит, операция невозможна"
+            if (((amountd * holdV) / percent) > minComission) return ((amountd * holdV) / percent).toInt()
+            else return minComission
+        }
+
+        cardVK -> {
+            if ((amountd > limitdVK) || ((amountd + amountm) > limitmVK))
+                return "Превышен лимит, операция невозможна"
+            return (amountd * 0)
+        }
+    }
+    return "Такой карты не существует"
+}
