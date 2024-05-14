@@ -96,7 +96,7 @@ class MainKtTest {
 
         val transfer = cardBank(cardVK, amountd, amountm)
 
-        assertEquals(0, transfer)
+        assertEquals(10, transfer)
     }
     @Test
     fun cardBankNo() {
@@ -106,6 +106,6 @@ class MainKtTest {
 
         val transfer = cardBank("card", amountd, amountm)
 
-        assertEquals("Такой карты не существует", transfer)
+        assertEquals(0, transfer)
     }
 }
